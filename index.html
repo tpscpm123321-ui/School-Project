@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Indian GK Quiz</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg, #8e2de2, #4a00e0, #6a11cb);
+    }
+    
+    /* Decorative elements */
+    .decoration {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      animation: float 6s infinite ease-in-out;
+    }
+    
+    .decoration:nth-child(1) {
+      width: 80px;
+      height: 80px;
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+    
+    .decoration:nth-child(2) {
+      width: 50px;
+      height: 50px;
+      top: 20%;
+      right: 15%;
+      animation-delay: 1s;
+    }
+    
+    .decoration:nth-child(3) {
+      width: 70px;
+      height: 70px;
+      bottom: 15%;
+      left: 15%;
+      animation-delay: 2s;
+    }
+    
+    .decoration:nth-child(4) {
+      width: 60px;
+      height: 60px;
+      bottom: 10%;
+      right: 10%;
+      animation-delay: 3s;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-20px) scale(1.05); }
+    }
+    
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      padding: 25px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      z-index: 10;
+    }
+    
+    /* Quiz-themed Logo Styles */
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      border: 4px solid #4b0082;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .logo-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      font-weight: bold;
+      color: #4b0082;
+      font-size: 3rem;
+      text-align: center;
+      position: relative;
+      font-family: 'Arial', sans-serif;
+    }
+    
+    h1 {
+      color: #4b0082;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    p {
+      color: #333;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+    
+    button {
+      margin: 10px 0;
+      padding: 15px;
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 600;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    
+    .easy { 
+      background: linear-gradient(to right, #4caf50, #2e7d32); 
+      color: white; 
+    }
+    
+    .medium { 
+      background: linear-gradient(to right, #ff9800, #ef6c00); 
+      color: white; 
+    }
+    
+    .hard { 
+      background: linear-gradient(to right, #f44336, #c62828); 
+      color: white; 
+    }
+    
+    .answer { 
+      background: linear-gradient(to right, #6200ea, #4527a0); 
+      color: white; 
+      text-align: left;
+      padding-left: 20px;
+    }
+    
+    .again { 
+      background: linear-gradient(to right, #8e2de2, #4a00e0); 
+      color: white; 
+    }
+    
+    .back { 
+      background: linear-gradient(to right, #78909c, #546e7a); 
+      color: white; 
+    }
+    
+    .sparkle {
+      position: absolute;
+      font-size: 24px;
+      animation: float 3s infinite ease-in-out;
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    .sparkle:nth-child(1) { top: 15px; left: 15px; }
+    .sparkle:nth-child(2) { bottom: 15px; right: 15px; animation-delay: 1s; }
+    .sparkle:nth-child(3) { top: 15px; right: 15px; animation-delay: 2s; }
+    .sparkle:nth-child(4) { bottom: 15px; left: 15px; animation-delay: 1.5s; }
+    
+    .mute-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 8px 12px;
+      background: rgba(34, 34, 34, 0.8);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+      z-index: 11;
+    }
+    
+    .mute-btn:hover {
+      transform: scale(1.1);
+      background: #222;
+    }
+    
+    .credit {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 0.9rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      z-index: 11;
+    }
+    
+    .progress-container {
+      width: 100%;
+      background: #f0f0f0;
+      border-radius: 10px;
+      margin: 15px 0;
+      overflow: hidden;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+    }
+    
+    .progress-bar {
+      height: 10px;
+      background: linear-gradient(to right, #4caf50, #2e7d32);
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+    
+    .progress-text {
+      font-size: 0.9rem;
+      color: #4b0082;
+      margin-bottom: 5px;
+      text-align: right;
+    }
+    
+    .score-display {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #4b0082;
+      margin: 15px 0;
+    }
+    
+    @media (max-width: 600px) {
+      .card {
+        padding: 20px;
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      p {
+        font-size: 1.1rem;
+      }
+      
+      button {
+        padding: 14px;
+        font-size: 1rem;
+      }
+      
+      .mute-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+      }
+      
+      .credit {
+        font-size: 0.8rem;
+        right: 15px;
+      }
+      
+      .logo {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .logo-inner {
+        width: 60px;
+        height: 60px;
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="decoration"></div>
+  <div class="decoration"></div>
+  <div class="decoration"></div>
+  <div class="decoration"></div>
+  
+  <div class="credit">Created by HILAL MANSOOR</div>
+  
+  <div class="card">
+    <div class="sparkle">✨</div>
+    <div class="sparkle">✨</div>
+    <div class="sparkle">✨</div>
+    <div class="sparkle">✨</div>
+    <button class="mute-btn" onclick="toggleMusic()">🔊</button>
+    
+    <div class="logo-container">
+      <div class="logo">
+        <div class="logo-inner">?</div>
+      </div>
+    </div>
+    
+    <div id="quiz"></div>
+  </div>
+
+  <audio id="bg-music" loop>
+    <source src="https://files.catbox.moe/5h7y8j.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const quizLevels = {
+      easy: [
+        { q: "What is the capital of India?", o: ["Mumbai","Delhi","Kolkata","Chennai"], a: "Delhi" },
+        { q: "Which animal is the national animal of India?", o: ["Lion","Tiger","Elephant","Peacock"], a: "Tiger" },
+        { q: "Who was the first Prime Minister of India?", o: ["Mahatma Gandhi","Nehru","Ambedkar","Patel"], a: "Nehru" },
+        { q: "Which is the national bird of India?", o: ["Crow","Sparrow","Peacock","Parrot"], a: "Peacock" },
+        { q: "Which is the national flower of India?", o: ["Rose","Lotus","Lily","Sunflower"], a: "Lotus" },
+        { q: "What is the currency of India?", o: ["Dollar","Rupee","Yen","Pound"], a: "Rupee" },
+        { q: "Which river is considered holy in India?", o: ["Yamuna","Ganga","Narmada","Godavari"], a: "Ganga" },
+        { q: "Who is known as the Father of the Nation?", o: ["Ambedkar","Mahatma Gandhi","Nehru","Patel"], a: "Mahatma Gandhi" },
+        { q: "Which sport is most popular in India?", o: ["Football","Cricket","Hockey","Kabaddi"], a: "Cricket" },
+        { q: "Which festival is known as the Festival of Lights?", o: ["Holi","Diwali","Eid","Christmas"], a: "Diwali" },
+      ],
+      medium: [
+        { q: "Who wrote the Indian national anthem?", o: ["Bankim Chandra","Rabindranath Tagore","Gandhi","Tilak"], a: "Rabindranath Tagore" },
+        { q: "Which city is known as the Silicon Valley of India?", o: ["Mumbai","Hyderabad","Bengaluru","Pune"], a: "Bengaluru" },
+        { q: "Who was the first woman Prime Minister of India?", o: ["Indira Gandhi","Sonia Gandhi","Sarojini Naidu","Pratibha Patil"], a: "Indira Gandhi" },
+        { q: "What is the national game of India?", o: ["Cricket","Hockey","Kabaddi","Chess"], a: "Hockey" },
+        { q: "In which year did India gain independence?", o: ["1942","1947","1950","1962"], a: "1947" },
+        { q: "Which Indian city is called the Pink City?", o: ["Delhi","Jaipur","Agra","Lucknow"], a: "Jaipur" },
+        { q: "Which is the largest state in India by area?", o: ["Maharashtra","Rajasthan","Madhya Pradesh","Uttar Pradesh"], a: "Rajasthan" },
+        { q: "Who built the Taj Mahal?", o: ["Akbar","Shah Jahan","Aurangzeb","Babur"], a: "Shah Jahan" },
+        { q: "What is the national fruit of India?", o: ["Banana","Apple","Mango","Guava"], a: "Mango" },
+        { q: "Where is the Gateway of India located?", o: ["Delhi","Mumbai","Chennai","Kolkata"], a: "Mumbai" },
+      ],
+      hard: [
+        { q: "Who was the first President of India?", o: ["Rajendra Prasad","Radhakrishnan","Nehru","Gandhi"], a: "Rajendra Prasad" },
+        { q: "Which is the oldest mountain range in India?", o: ["Himalayas","Vindhyas","Aravalli","Satpura"], a: "Aravalli" },
+        { q: "What is the script of Hindi language?", o: ["Devanagari","Sanskrit","Brahmi","Roman"], a: "Devanagari" },
+        { q: "Which state is known as the 'Spice Garden of India'?", o: ["Kerala","Goa","Assam","Tamil Nadu"], a: "Kerala" },
+        { q: "Who was known as the Iron Man of India?", o: ["Bose","Patel","Nehru","Ambedkar"], a: "Patel" },
+        { q: "What is the national motto of India?", o: ["Satyameva Jayate","Vande Mataram","Jai Hind","Sarvodaya"], a: "Satyameva Jayate" },
+        { q: "Where is the Sun Temple located?", o: ["Konark","Khajuraho","Ellora","Ajanta"], a: "Konark" },
+        { q: "Which is the highest civilian award in India?", o: ["Padma Shri","Bharat Ratna","Padma Vibhushan","Param Vir Chakra"], a: "Bharat Ratna" },
+        { q: "Who was the first Indian to win a Nobel Prize?", o: ["C.V. Raman","Rabindranath Tagore","Amartya Sen","Kailash Satyarthi"], a: "Rabindranath Tagore" },
+        { q: "Which state has the longest coastline in India?", o: ["Kerala","Maharashtra","Gujarat","Andhra Pradesh"], a: "Gujarat" },
+      ]
+    };
+
+    let level = null, quiz = [], current = 0, score = 0;
+
+    function renderLevels() {
+      document.getElementById("quiz").innerHTML = `
+        <h1>🇮🇳 Indian GK Quiz 🇮🇳</h1>
+        <p>Test your knowledge about India!</p>
+        <button class="easy" onclick="startQuiz('easy')">Easy</button>
+        <button class="medium" onclick="startQuiz('medium')">Medium</button>
+        <button class="hard" onclick="startQuiz('hard')">Hard</button>
+      `;
+    }
+
+    function startQuiz(lvl) {
+      level = lvl;
+      quiz = quizLevels[lvl];
+      current = 0; score = 0;
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const q = quiz[current];
+      const progressPercent = ((current) / quiz.length) * 100;
+      
+      document.getElementById("quiz").innerHTML = `
+        <div class="progress-text">${current}/${quiz.length} questions</div>
+        <div class="progress-container">
+          <div class="progress-bar" style="width: ${progressPercent}%"></div>
+        </div>
+        <h1>Question ${current+1} of ${quiz.length}</h1>
+        <p>${q.q}</p>
+        ${q.o.map(o => `<button class="answer" onclick="checkAnswer('${o}')">${o}</button>`).join('')}
+      `;
+    }
+
+    function checkAnswer(opt) {
+      if(opt === quiz[current].a) score++;
+      current++;
+      if(current < quiz.length) {
+        renderQuestion();
+      } else {
+        const percentage = Math.round((score / quiz.length) * 100);
+        let message = "";
+        
+        if(percentage >= 80) message = "Brilliant! 🎉";
+        else if(percentage >= 60) message = "Well done! 👍";
+        else if(percentage >= 40) message = "Good effort! 😊";
+        else message = "Keep learning! 📚";
+        
+        document.getElementById("quiz").innerHTML = `
+          <h1>Quiz Finished!</h1>
+          <div class="score-display">${message}</div>
+          <p>You scored ${score} out of ${quiz.length}</p>
+          <button class="again" onclick="startQuiz(level)">Play Again</button>
+          <button class="back" onclick="renderLevels()">Back to Levels</button>
+        `;
+      }
+    }
+
+    function toggleMusic() {
+      const music = document.getElementById("bg-music");
+      if(music.paused) {
+        music.play().catch(e => console.log("Audio play failed:", e));
+        document.querySelector(".mute-btn").textContent = "🔊";
+      } else {
+        music.pause();
+        document.querySelector(".mute-btn").textContent = "🔇";
+      }
+    }
+
+    // Initialize with music paused to respect browser autoplay policies
+    window.onload = function() {
+      renderLevels();
+      document.getElementById("bg-music").pause();
+      document.querySelector(".mute-btn").textContent = "🔇";
+      
+      // Add click event to document to start music on first user interaction
+      document.addEventListener('click', function() {
+        const music = document.getElementById("bg-music");
+        if(music.paused) {
+          music.play().catch(e => console.log("Audio play failed:", e));
+          document.querySelector(".mute-btn").textContent = "🔊";
+        }
+      }, { once: true }); // Only run once
+    }
+  </script>
+</body>
+</html>
